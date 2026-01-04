@@ -1,110 +1,259 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>ข้อความลับถึงซีน 💖</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seen's Journey 💜✨</title>
+    <link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;700&family=Montserrat:wght@600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        :root {
+            --main-violet: #4b0082;
+            --soft-pink: #ffb6c1;
+            --deep-purple: #2d004d;
+            --glass: rgba(255, 255, 255, 0.1);
+        }
 
-<style>
-  body {
-    margin: 0;
-    height: 100vh;
-    font-family: "Comic Sans MS", "Segoe UI", sans-serif;
-    background: linear-gradient(135deg, #ffd6e8, #ffeef6);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+        body, html {
+            margin: 0; padding: 0; width: 100%; height: 100%;
+            font-family: 'Mali', cursive;
+            background: radial-gradient(circle at center, #1a0033 0%, #05000a 100%);
+            color: white; overflow: hidden;
+            display: flex; justify-content: center; align-items: center;
+        }
 
-  .card {
-    background: #ffffff;
-    padding: 30px;
-    border-radius: 24px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-    text-align: center;
-    width: 90%;
-    max-width: 380px;
-  }
+        #star-canvas {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
+        }
 
-  h1 {
-    color: #ff5fa2;
-    margin-bottom: 10px;
-  }
+        .main-card {
+            width: 90%; max-width: 420px;
+            background: var(--glass);
+            backdrop-filter: blur(25px);
+            border-radius: 35px;
+            padding: 40px 25px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+            position: relative;
+            transition: all 0.5s ease;
+        }
 
-  .emoji {
-    font-size: 2.5rem;
-  }
+        h2 { font-family: 'Montserrat', sans-serif; letter-spacing: 2px; color: var(--soft-pink); margin-bottom: 25px; }
+        
+        .hidden { display: none; }
 
-  button {
-    margin-top: 20px;
-    background: #ff7eb6;
-    border: none;
-    color: white;
-    font-size: 1rem;
-    padding: 12px 20px;
-    border-radius: 999px;
-    cursor: pointer;
-    transition: transform 0.2s, background 0.2s;
-  }
+        /* Buttons & Inputs */
+        .primary-btn {
+            background: linear-gradient(45deg, #6a0dad, #ff69b4);
+            border: none; color: white; padding: 14px 35px; border-radius: 50px;
+            cursor: pointer; font-weight: bold; font-size: 1rem;
+            transition: 0.3s; box-shadow: 0 10px 20px rgba(106, 13, 173, 0.3);
+            font-family: 'Mali', cursive;
+        }
+        .primary-btn:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(255, 105, 180, 0.4); }
 
-  button:hover {
-    background: #ff5fa2;
-    transform: scale(1.05);
-  }
+        .quiz-option {
+            display: block; width: 100%; padding: 15px; margin: 12px 0;
+            background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 15px; color: white; cursor: pointer; transition: 0.3s;
+            font-family: 'Mali', cursive; font-size: 1rem;
+        }
+        .quiz-option:hover { background: rgba(255, 255, 255, 0.2); border-color: var(--soft-pink); }
 
-  .message {
-    margin-top: 20px;
-    text-align: left;
-    display: none;
-    animation: fadeIn 0.8s ease;
-  }
+        .input-field {
+            background: rgba(255,255,255,0.1); border: 1.5px solid var(--soft-pink);
+            padding: 12px; border-radius: 15px; color: white; text-align: center;
+            margin-bottom: 20px; width: 80%; outline: none;
+        }
 
-  .line {
-    margin-bottom: 10px;
-    font-size: 1rem;
-  }
+        /* Animations */
+        @keyframes floatImg {
+            0%, 100% { transform: translateY(0) rotate(0); }
+            50% { transform: translateY(-15px) rotate(5deg); }
+        }
+        .profile-frame {
+            width: 140px; height: 140px; border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            border: 4px solid var(--soft-pink); margin: 0 auto 20px;
+            overflow: hidden; animation: floatImg 4s infinite ease-in-out;
+            box-shadow: 0 0 25px rgba(255, 182, 193, 0.5);
+        }
+        .profile-frame img { width: 100%; height: 100%; object-fit: cover; }
 
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  .cute-img {
-    width: 140px;
-    margin: 15px auto;
-    display: block;
-    border-radius: 20px;
-  }
+        #game-box {
+            height: 220px; background: rgba(0,0,0,0.3); border-radius: 20px;
+            position: relative; margin: 20px 0; overflow: hidden; border: 1px dashed var(--soft-pink);
+        }
 
-  .hidden {
-    display: none;
-  }
-</style>
+        .shake { animation: shake 0.4s; }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+    </style>
 </head>
-
 <body>
-  <div class="card">
-    <div class="emoji">🐰💖✨</div>
-    <img src="images/e01ae287-6c9d-4ca0-8e5f-61edfcecfbb1.jpg" class="cute-img hidden" id="cuteImage" />
-    <h1>ถึงซีน (Seen)</h1>
-    <p>ห้ามกดนะไอ้งัว…</p>
 
-    <button onclick="showMessage()">กดดูข้อความน่ารักคิคิ 💌</button>
+<canvas id="star-canvas"></canvas>
 
-    <div class="message" id="messageBox">
-      <div class="line">💗 สุขสันต์ครบรอบ 1 เดือนนะ</div>
-      <div class="line">🐻 อยู่ด้วยกันมา 1M แล้ว ซีนน่ารักกับพีเสมอมาเลยย</div>
-      <div class="line">✨ อยากให้ซีนอยู่กับพีไปนานๆ เลยนะ</div>
-      <div class="line">😳 อย่างี่เง่าบ่อยนะตัวเร้ก ตุบป้องเราง้อไม่ค่อยเก่งเเต่ก้รักก</div>
-      <div class="line">💞 ขอบคุณที่อยู่ข้าง ๆ กันนะ</div>
-      <div class="line">🌷 ขอให้มี 2M 3M 10M ไปเรื่อย ๆ เลย</div>
-      <div class="line">❤️ รักซีนนะ</div>
+<div class="main-card" id="card">
+    <div id="stage-1">
+        <div style="font-size: 4rem; margin-bottom: 10px;">🌑</div>
+        <h2>ACCESS CODE</h2>
+        <p>ยืนยันความเป็น "ไอ้งัว" ของพีหน่อย</p>
+        <input type="text" id="pass-input" class="input-field" placeholder="ใครคือไอ้งัว? (ชื่อเล่นแฟน)">
+        <br>
+        <button class="primary-btn" onclick="verify()">ENTER 💜</button>
     </div>
-  </div>
+
+    <div id="stage-2" class="hidden">
+        <h2>MISSION 01</h2>
+        <p>จับหัวใจของพีให้ทัน (10 ดวง)</p>
+        <div id="game-box"></div>
+        <p style="color: var(--soft-pink);">Score: <span id="score-val">0</span> / 10</p>
+    </div>
+
+    <div id="stage-3" class="hidden">
+        <h2 id="q-number">MISSION 02</h2>
+        <p id="q-text" style="font-size: 1.1rem; min-height: 50px;"></p>
+        <div id="q-options"></div>
+    </div>
+
+    <div id="stage-4" class="hidden">
+        <div class="profile-frame">
+            <img src="images/e01ae287-6c9d-4ca0-8e5f-61edfcecfbb1.jpg" alt="Seen">
+        </div>
+        <h2 style="margin-bottom: 10px;">UNLOCKED 💖</h2>
+        <div id="letter" style="text-align: left; font-size: 0.95rem; line-height: 1.7; color: #fce4ec;"></div>
+        <button class="primary-btn" style="margin-top: 25px;" onclick="celebrate()">Hooray! ✨</button>
+    </div>
+</div>
 
 <script>
-  function showMessage() {
-    document.getElementById("messageBox").style.display = "block";
-  }
+    // Starry Background
+    const canvas = document.getElementById('star-canvas');
+    const ctx = canvas.getContext('2d');
+    let stars = [];
+
+    function initStars() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        stars = Array(150).fill().map(() => ({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            r: Math.random() * 1.5,
+            o: Math.random()
+        }));
+    }
+
+    function animateStars() {
+        ctx.clearRect(0,0,canvas.width, canvas.height);
+        stars.forEach(s => {
+            ctx.fillStyle = `rgba(255, 255, 255, ${s.o})`;
+            ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI*2); ctx.fill();
+            s.o += 0.01; if(s.o > 1) s.o = 0;
+        });
+        requestAnimationFrame(animateStars);
+    }
+    initStars(); animateStars();
+
+    // Verification Logic
+    function verify() {
+        const input = document.getElementById('pass-input').value;
+        if(input.trim() !== "") {
+            nextStage(1, 2);
+            startHeartGame();
+        } else {
+            alert('ใส่ชื่อหน่อยเร็วยัยตัวแสบ!');
+        }
+    }
+
+    // Heart Game Logic
+    let score = 0;
+    function startHeartGame() {
+        const box = document.getElementById('game-box');
+        const loop = setInterval(() => {
+            if(score >= 10) {
+                clearInterval(loop);
+                nextStage(2, 3);
+                startQuiz();
+                return;
+            }
+            const h = document.createElement('div');
+            h.innerHTML = '💜';
+            h.style.cssText = `position:absolute; left:${Math.random()*90}%; top:${Math.random()*85}%; cursor:pointer; font-size:25px; transition: 0.2s;`;
+            h.onclick = () => { score++; document.getElementById('score-val').innerText = score; h.style.transform = 'scale(2)'; h.style.opacity = '0'; setTimeout(()=>h.remove(), 200); };
+            box.appendChild(h);
+            setTimeout(() => h.remove(), 900);
+        }, 700);
+    }
+
+    // Quiz Data
+    const quizData = [
+        { q: "พีชอบสีอะไรมากที่สุด?", a: ["สีเขียว", "สีชมพู", "สีม่วง"], correct: 2 },
+        { q: "พีชอบพูดคำไหนใส่ซีนมากที่สุด?", a: ["ไอ้หมอยดก", "ไอ้งัว", "ไอ้งวงช้าง"], correct: 1 },
+        { q: "พีชอบไอเทมอะไรเป็นพิเศษ?", a: ["หมูยอไชส์56", "โมเดลหมีเนยสำเร็จรูป", "เเว่นตา"], correct: 1 }
+    ];
+    let currentQ = 0;
+
+    function startQuiz() {
+        if(currentQ >= quizData.length) {
+            nextStage(3, 4);
+            revealLetter();
+            return;
+        }
+        document.getElementById('q-number').innerText = `Question 0${currentQ + 1}`;
+        document.getElementById('q-text').innerText = quizData[currentQ].q;
+        const opts = document.getElementById('q-options');
+        opts.innerHTML = '';
+        
+        quizData[currentQ].a.forEach((choice, i) => {
+            const btn = document.createElement('button');
+            btn.className = 'quiz-option';
+            btn.innerText = choice;
+            btn.onclick = () => {
+                if(i === quizData[currentQ].correct) {
+                    currentQ++; 
+                    confetti({ particleCount: 50, spread: 30, origin: { y: 0.8 } });
+                    startQuiz();
+                } else {
+                    document.getElementById('card').classList.add('shake');
+                    setTimeout(() => document.getElementById('card').classList.remove('shake'), 400);
+                    alert('ตอบผิดหรอ ไอ้งัวของพี! 😋');
+                }
+            };
+            opts.appendChild(btn);
+        });
+    }
+
+    // Final Letter
+    function revealLetter() {
+        const text = `
+            สวัสดี <span style="color:var(--soft-pink); font-weight:bold;">"ไอ้งัวของพี"</span>,<br><br>
+            ยินดีด้วยนะที่ผ่านด่านมาได้! 30 วันที่ผ่านมาพีมีความสุขมากเลยนะที่มีซีนอยู่ข้างๆ<br><br>
+            ถึงพีจะง้อไม่เก่ง หรือชอบพูดกวนประสาทไปบ้าง แต่ขอบคุณที่ซีนยังอดทนและน่ารักกับพีเสมอมา<br><br>
+            <span style="border-bottom: 2px solid var(--soft-pink);">สัญญาได้ไหม:</span> ว่าเดือนที่ 2, 3 และเดือนต่อๆ ไป จะยังเป็นไอ้งัวตัวเดิมที่อยู่ข้างกันแบบนี้<br><br>
+            รักซีนมากๆ นะครับ <br>จาก... <span style="font-family:'Montserrat';">PEE</span> 💜
+        `;
+        document.getElementById('letter').innerHTML = text;
+        celebrate();
+    }
+
+    function celebrate() {
+        const duration = 3 * 1000;
+        const end = Date.now() + duration;
+        (function frame() {
+            confetti({ particleCount: 3, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#6a0dad', '#ffb6c1'] });
+            confetti({ particleCount: 3, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#6a0dad', '#ffb6c1'] });
+            if (Date.now() < end) requestAnimationFrame(frame);
+        }());
+    }
+
+    function nextStage(f, t) {
+        document.getElementById(`stage-${f}`).classList.add('hidden');
+        document.getElementById(`stage-${t}`).classList.remove('hidden');
+    }
 </script>
 </body>
 </html>
