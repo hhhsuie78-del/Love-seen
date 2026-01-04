@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>ข้อความลับถึงซีน 💖</title>
+
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    font-family: "Comic Sans MS", "Segoe UI", sans-serif;
+    background: linear-gradient(135deg, #ffd6e8, #ffeef6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .card {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 24px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    text-align: center;
+    width: 90%;
+    max-width: 380px;
+  }
+
+  h1 {
+    color: #ff5fa2;
+    margin-bottom: 10px;
+  }
+
+  .emoji {
+    font-size: 2.5rem;
+  }
+
+  button {
+    margin-top: 20px;
+    background: #ff7eb6;
+    border: none;
+    color: white;
+    font-size: 1rem;
+    padding: 12px 20px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: transform 0.2s, background 0.2s;
+  }
+
+  button:hover {
+    background: #ff5fa2;
+    transform: scale(1.05);
+  }
+
+  .message {
+    margin-top: 20px;
+    text-align: left;
+    display: none;
+    animation: fadeIn 0.8s ease;
+  }
+
+  .line {
+    margin-bottom: 10px;
+    font-size: 1rem;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+
+<body>
+  <div class="card">
+    <div class="emoji">🐰💖✨</div>
+    <h1>ถึงซีน (Seen)</h1>
+    <p>ห้ามกดนะไอ้งัว…</p>
+
+    <button onclick="showMessage()">กดดูข้อความน่ารักคิคิ 💌</button>
+
+    <div class="message" id="messageBox">
+      <div class="line">💗 สุขสันต์ครบรอบ 1 เดือนนะ</div>
+      <div class="line">🐻 อยู่ด้วยกันมา 1M แล้ว ซีนน่ารักกับพีเสมอมาเลยย</div>
+      <div class="line">✨ อยากให้ซีนอยู่กับพีไปนานๆ เลยนะ</div>
+      <div class="line">😳 อย่างี่เง่าบ่อยนะตัวเร้ก ตุบป้องเราง้อไม่ค่อยเก่งเเต่ก้รักก</div>
+      <div class="line">💞 ขอบคุณที่อยู่ข้าง ๆ กันนะ</div>
+      <div class="line">🌷 ขอให้มี 2M 3M 10M ไปเรื่อย ๆ เลย</div>
+      <div class="line">❤️ รักซีนนะ</div>
+    </div>
+  </div>
+
+<script>
+  function showMessage() {
+    document.getElementById("messageBox").style.display = "block";
+  }
+</script>
+</body>
+</html>
